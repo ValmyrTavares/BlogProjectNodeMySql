@@ -9,10 +9,20 @@
         <div class="card-body">
             <form method="POST" action="/categories/save">
                 <input type="text" class="form-control" name="title" placeholder="Definao titulo do Artigo">
-                <textarea class="form-control" placeholder="Escreva o seu artigo" name="body"></textarea>
+                <textarea class="form-control" placeholder="Escreva o seu artigo" name="body" id="article"></textarea>
                 <button class="btn btn-success mt-3">Cadastrar</button>
             </form>
         </div>
     </div>
 </div>
 <%- include('../../partials/footer')%></hr>
+
+<script src="/tinymce/tinymce.min.js"></script>
+<script>
+    tinymce.init({
+        selector:"#article",
+        plugins:[
+            'advlist autolink link image lists print preview hr searchreplace wordcount fullscreen inserdatatime media save table paste emotions'
+        ]
+    })
+</script>
