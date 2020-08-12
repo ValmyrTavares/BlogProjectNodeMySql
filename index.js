@@ -35,6 +35,7 @@ app.use("/",categoriesController)
 
     //ROTAS
 
+// - 1
 app.get("/",(req, res)=>{
     Article.findAll({
         order:[
@@ -47,6 +48,7 @@ app.get("/",(req, res)=>{
     })
 })
 
+// - 2
 app.get("/:slug", (req, res)=>{
     var slug = req.params.slug;
     Article.findOne({
@@ -56,13 +58,34 @@ app.get("/:slug", (req, res)=>{
     }).then(article =>{ {        
         if(article != undefined){
            Category.findAll().then((categories)=> {
-               res.render("article", {article:article, categories: categories})
+               res.render("articles", {article:article, categories: categories})
            })
         }else{
             res.redirect("/")
         }
     }
     }).catch((err) =>{
+        res.redirect("/")
+    })
+})
+
+// - 3
+app.get("/category/:slug",(req,res)=>{
+    var slug = req.params.slug;
+    Category.findOne({
+        where:{
+            slug:slug
+        },
+        include:[{model: Article}]
+    }).then(category => {
+        if(category != undefined){
+            Category.findAll().then(categories=>{
+                res.render("index",{articles: category.articles, categories: categories})
+            })
+        }else{
+            res.redirect("/")
+        }
+    }).catch(err => {
         res.redirect("/")
     })
 })
