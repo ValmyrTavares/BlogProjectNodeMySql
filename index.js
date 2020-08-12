@@ -34,8 +34,11 @@ app.use("/",categoriesController)
 
 
 app.get("/",(req, res)=>{
-    res.render("index")
+    Article.findAll().then(articles => {
+        res.render("index",{articles:articles})
+    })
 })
+
 
 app.listen(8000, () =>{
     console.log("O servidor está rodando")
