@@ -9,18 +9,18 @@ const categoriesController = require("./categories/CategoriesController")
 const Article = require("./articles/Article")
 const Category = require("./categories/Category")
 
-//view engine
+    //VIEW ENGINE
 app.set('view engine','ejs')
 
 
-//static
+    //STATIC
 app.use(express.static('public'))
 
-//BODYPOASER
+     //BODYPOASER
 app.use(bodyParser.urlencoded({extended:false}))
 app.use(bodyParser.json())
 
-//database
+     //DATABASE
 connection
 .authenticate()
 .then(()=>{
@@ -33,13 +33,17 @@ app.use("/",articlesController)
 app.use("/",categoriesController)
 
 
+    //ROTAS
+
 app.get("/",(req, res)=>{
     Article.findAll({
         order:[
             ['id','DESC']
         ]
     }).then(articles => {
-        res.render("index",{articles:articles})
+        Category.findAll().then(categories => {
+            res.render("index",{articles:articles, categories:categories})
+        })
     })
 })
 
@@ -49,9 +53,11 @@ app.get("/:slug", (req, res)=>{
         where:{
             slug:slug
         }
-    }).then(article =>{ {
+    }).then(article =>{ {        
         if(article != undefined){
-            res.render("articles",{article: article})
+           Category.findAll().then((categories)=> {
+               res.render("article", {article:article, categories: categories})
+           })
         }else{
             res.redirect("/")
         }
