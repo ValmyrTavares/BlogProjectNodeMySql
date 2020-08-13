@@ -1,1 +1,20 @@
-<h1>Formulário de Usuários</h1>
+<%- include('../../partials/header')%>
+<%- include('../../partials/nav.ejs')%>
+
+<div class="container">
+    <div class="card mt-4">
+        <div class="card-header">
+            <h2>Criação do Usuário</h2>
+        </div>
+        <div class="card-body">
+            <form method="POST" action="/users/create">
+                <input class="form-control" name="email" type="email" placeholder="email">
+                <input class="form-control" name="password" type="password" placeholder="password">
+                <button type="submit" class="btn btn-success btn-block">Criar</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<%- include('../../partials/footer')%></hr>
