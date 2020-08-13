@@ -5,9 +5,11 @@ const connection = require("./database/database")
 
 const articlesController = require("./articles/ArticlesController")
 const categoriesController = require("./categories/CategoriesController")
+const usersController = require("./user/UserController")
 
 const Article = require("./articles/Article")
 const Category = require("./categories/Category")
+const User = require("./user/User")
 
     //VIEW ENGINE
 app.set('view engine','ejs')
@@ -31,6 +33,7 @@ connection
 
 app.use("/",articlesController)
 app.use("/",categoriesController)
+app.use("/",usersController)
 
 
     //ROTAS
