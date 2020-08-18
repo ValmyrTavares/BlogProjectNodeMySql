@@ -15,6 +15,11 @@ const User = require("./user/User")
     //VIEW ENGINE
 app.set('view engine','ejs')
 
+    //Session
+    app.use(session({
+        secret: "qualquercoisa", cookie:{maxAge:300000}
+    }))
+
 
     //STATIC
 app.use(express.static('public'))
@@ -38,6 +43,13 @@ app.use("/",usersController)
 
 
     //ROTAS
+
+    app.get("/session",(req,res)=>{
+
+    })
+    app.get("/leitura",(req,res)=>{
+        
+    })
 
 // - 1
 app.get("/",(req, res)=>{
